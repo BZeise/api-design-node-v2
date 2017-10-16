@@ -3,15 +3,16 @@ import mongoose from 'mongoose'
 export const schema = {
   title:  {
     type: String,
-    required: true
+    required: [true, 'Needs a title for this playlist!']
   },
-  songs: {
-    type: Array,
-    required: true
-  },
+  songs: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'song'
+  }],
   favorite: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
   }
 }
 
