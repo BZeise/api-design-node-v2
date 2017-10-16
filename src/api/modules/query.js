@@ -29,7 +29,9 @@ export const controllers = {
 }
 
 export const createOne = (model) => (req, res, next) => {
-
+  return controllers.createOne(model, req.body)
+    .then(result => res.json(result))
+    .catch(e => res.status(500).send('Something is broken'))
 }
 
 export const updateOne = (model) => async (req, res, next) => {
@@ -41,7 +43,7 @@ export const deleteOne = (model) => (req, res, next) => {
 }
 
 export const getOne = (model) => (req, res, next) => {
-
+  res.status(201).json({post: true})
 }
 
 export const getAll = (model) => (req, res, next) => {
@@ -49,7 +51,7 @@ export const getAll = (model) => (req, res, next) => {
 }
 
 export const findByParam = (model) => (req, res, next, id) => {
-  
+
 }
 
 
