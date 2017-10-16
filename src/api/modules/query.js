@@ -4,27 +4,29 @@ const testData = {message: 'hello'}
 // These are generic methods used in the generic controllers for all models
 export const controllers = {
   createOne(model, body) {
-    return Promise.resolve(testData)
+    return model.create(body)
   },
 
   updateOne(docToUpdate, update) {
-    return Promise.resolve(testData)
+    merge(docToUpdate, update)
+    return docToUpdate.save()
   },
 
   deleteOne(docToDelete) {
-    return Promise.resolve(testData)
+    return docToDelete.remove()
   },
 
   getOne(docToGet) {
-    return Promise.resolve(testData)
+    /// can do other things here if you want
+    return Promise.resolve(docToGet)
   },
 
   getAll(model) {
-    return Promise.resolve(testData)
+    return model.find({}).exec()
   },
 
   findByParam(model, id) {
-    return Promise.resolve(testData)
+    return model.findById(id).exec()
   }
 }
 
@@ -89,3 +91,26 @@ export const generateControllers = (model, overrides = {}) => {
 
   return {...defaults, ...overrides}
 }
+
+
+
+// Song.findById(id)  //  -> returns mongo query
+// Song.findById(id)
+//   .where()
+//   .exec() // ends the query
+//
+// // this is all model-level stuff
+// const song = await Song.findById(id).exec()
+// Song.findOne({name: 'nameToFind'}).exec()
+//
+// const song = new Song({})
+// Song.create({})
+//
+// Song.findOneAndUpdate({name:'nameToFind'}, {name:'newName'}, {new: true})
+//
+// // document-level
+// song.name = 'sdasdlkj'
+// const newSong = await song.save()
+// song.save()
+// song.remove()
+// song.populate()
